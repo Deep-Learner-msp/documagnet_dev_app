@@ -10,7 +10,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const { question, history } = req.body;
+  const { question } = req.body;
 
   console.log('question', question);
 
@@ -31,7 +31,9 @@ export default async function handler(
 
     /* create vectorstore*/
     const vectorStore = await PineconeStore.fromExistingIndex(
-      new OpenAIEmbeddings({}),
+      new OpenAIEmbeddings({
+        openAIApiKey: "api-key"
+      }),
       {
         pineconeIndex: index,
         textKey: 'text',
